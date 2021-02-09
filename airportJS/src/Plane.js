@@ -1,5 +1,9 @@
 class Plane {
-  status() {
-    return "In The Air";
+  constructor() {
+    this.status = "In The Air"
+  }
+
+  landed(status) {
+    this.status = "In airport"
   }
 }
