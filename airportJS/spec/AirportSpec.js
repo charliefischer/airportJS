@@ -2,6 +2,7 @@ describe('Airport', function() {
   beforeEach(function() {
     airport = new Airport();
     plane = new Plane();
+    weather = new Weather("sunny");
   })
 
   describe('#capacity', function(){
@@ -54,10 +55,22 @@ describe('Airport', function() {
     it('does not allow takeoff of flying planes', function(){
       plane_2 = new Plane();
       airport.land(plane_2);
-      
+
       expect (function() {
                   airport.takeoff(plane);
                 }).toThrow(new Error("Plane airborne."))
+    })
+  })
+
+  describe('weather', function() {
+    it('prevents landing when stormy', function(){
+      spyOn(weather, 'generateWeather').and.returnValue("stormy");
+      airport_4 = new Airport();
+      airport.weather = "stormy"
+
+      expect( function(){
+                  airport.land(plane);
+                }).toThrow(new Error("Too stormy to land."))
     })
   })
 })

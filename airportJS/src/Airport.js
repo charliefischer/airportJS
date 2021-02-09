@@ -2,9 +2,16 @@ class Airport {
   constructor(capacity = 20) {
     this.capacity = capacity
     this.planes = []
+    weather = new Weather("sunny");
+    // weather = weather.generateWeather("stormy");
+    // console.log(weather);
+    this.weather = weather.weatherReport;
   }
 
   land(plane) {
+    if (this.weather === "stormy") {
+      throw new Error ('Too stormy to land.')
+    }
     if(this.planes.length === this.capacity) {
       throw new Error ('Airport full.');
     } else {
@@ -14,6 +21,7 @@ class Airport {
   }
 
   takeoff(plane) {
+
     if(this.planes.length === 0) {
       throw new Error ('Airport empty.')
       } else if(plane.status === "In The Air") {
