@@ -3,7 +3,11 @@ class Plane {
     this.status = "In The Air"
   }
 
-  landed(status) {
+  landed() {
     this.status = "In airport"
+  }
+
+  takeoff() {
+    this.status = "In The Air"
   }
 }
