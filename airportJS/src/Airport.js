@@ -1,5 +1,14 @@
 class Airport {
-  constructor(capacity) {
-    this.capacity = 20
+  constructor(capacity = 20) {
+    this.capacity = capacity
+    this.planes = []
+  }
+
+  land(plane) {
+    if(this.planes.length === this.capacity) {
+      throw new Error ('Airport full.');
+    } else {
+      this.planes.push(plane);
+    }
   }
 }
