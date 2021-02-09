@@ -25,6 +25,7 @@ describe('Plane', function() {
   })
 
   it('changes the status of the plane on takeoff', function() {
+    airport.land(plane)
     airport.takeoff(plane);
     expect(plane.status).toBe("In The Air");
   })
