@@ -14,12 +14,17 @@ describe('Airport', function() {
     airport.land(plane)
     expect(airport.planes[0]).toBe(plane)
   })
+
   it('doesnt let planes land when full', function() {
     airport_3 = new Airport(1);
     airport_3.land(plane)
-    console.log(airport_3)
     expect ( function() {airport_3.land(plane); }).toThrow(new Error("Airport full."))
   })
 
+  it('removes the plane from planes on takeoff', function() {
+    airport.land(plane)
+    airport.takeoff(plane)
+    expect(airport.planes.length).toBe(0)
+  })
 
 })

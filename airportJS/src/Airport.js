@@ -9,6 +9,11 @@ class Airport {
       throw new Error ('Airport full.');
     } else {
       this.planes.push(plane);
+      plane.landed();
     }
+  }
+
+  takeoff(plane) {
+    this.planes.pop();
   }
 }
