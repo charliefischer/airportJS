@@ -10,4 +10,8 @@ class Plane {
   takeoff() {
     this.status = "In The Air"
   }
+
+  showStatus() {
+    return this.status 
+  }
 }

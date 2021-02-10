@@ -1,28 +1,28 @@
 describe('Airport', function() {
   beforeEach(function() {
-    airport = new Airport();
+    // weather = new Weather("sunny");
     plane = new Plane();
-    weather = new Weather("sunny");
+    airport = new Airport('sunny');
   })
 
   describe('#capacity', function(){
     it('has a default capacity of 20 spaces', function() {
-      expect(airport.capacity).toBe(20);
+      expect(airport.showCapacity()).toBe(20);
     })
     it('can specify a different default capacity', function() {
-      airport_2 = new Airport(100);
-      expect(airport_2.capacity).toBe(100);
+      airport_2 = new Airport('sunny', 100);
+      expect(airport_2.showCapacity()).toBe(100);
     })
   })
 
   describe('#landing', function() {
     it('lands planes', function() {
       airport.land(plane);
-      expect(airport.planes[0]).toBe(plane);
+      expect(airport.planesInAirport()[0]).toBe(plane);
     })
 
     it('doesnt let planes land when full', function() {
-      airport_3 = new Airport(1);
+      airport_3 = new Airport('sunny', 1);
       airport_3.land(plane);
       expect ( function() {airport_3.land(plane); }).toThrow(new Error("Airport full."));
     })
@@ -32,7 +32,7 @@ describe('Airport', function() {
     it('removes the plane from planes on takeoff', function() {
       airport.land(plane);
       airport.takeoff(plane);
-      expect(airport.planes.length).toBe(0);
+      expect(airport.planesInAirport().length).toBe(0);
     })
 
     it('does not allow takeoff when empty', function(){
@@ -44,7 +44,7 @@ describe('Airport', function() {
     it('only allows planes in airport to take off', function(){
       plane_2 = new Plane();
       airport.land(plane);
-      airport_2 = new Airport();
+      airport_2 = new Airport('sunny');
       airport_2.land(plane_2);
       expect (function() {
                   airport_2.takeoff(plane);
@@ -63,13 +63,18 @@ describe('Airport', function() {
   })
 
   describe('weather', function() {
-    it('prevents landing when stormy', function(){
-      spyOn(weather, 'generateWeather').and.returnValue("stormy");
-      airport_4 = new Airport();
-      airport.weather = "stormy"
 
+    it('prevents landing when stormy', function(){
+      console.log(airport)
+      airport_4 = new Airport('stormy');
+      // spyOn(weather, 'generateWeather').and.returnValue("stormy");
+      
+
+
+      // spyOn(Math, 'random').and.returnValue(8);
+      console.log(airport_4)
       expect( function(){
-                  airport.land(plane);
+                  airport_4.land(plane);
                 }).toThrow(new Error("Too stormy to land."))
     })
   })

@@ -1,11 +1,21 @@
 class Airport {
-  constructor(capacity = 20) {
+  constructor(weather, capacity = 20) {
     this.capacity = capacity
     this.planes = []
-    weather = new Weather("sunny");
-    // weather = weather.generateWeather("stormy");
-    // console.log(weather);
-    this.weather = weather.weatherReport;
+    weather = new Weather(weather);
+    this.weather = weather.showWeather();
+  }
+
+  planesInAirport() {
+    return this.planes;
+  }
+
+  showCapacity() {
+    return this.capacity;
+  }
+
+  theWeather() {
+    return this.weather;
   }
 
   land(plane) {

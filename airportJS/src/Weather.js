@@ -1,5 +1,5 @@
 class Weather {
-  constructor(weather){
+  constructor(weather = generateWeather()){
     this.weatherReport = weather;
   }
 
@@ -11,8 +11,12 @@ class Weather {
         this.weatherReport = "sunny";
       }
     } else {
-      this.weatherReport = weather
+      this.weatherReport = weather;
     }
-    return this.weatherReport
+    return this.weatherReport;
+  }
+
+  showWeather() {
+    return this.weatherReport;
   }
 }
