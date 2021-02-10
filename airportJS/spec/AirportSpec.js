@@ -1,6 +1,5 @@
 describe('Airport', function() {
   beforeEach(function() {
-    // weather = new Weather("sunny");
     plane = new Plane();
     airport = new Airport('sunny');
   })
@@ -65,14 +64,7 @@ describe('Airport', function() {
   describe('weather', function() {
 
     it('prevents landing when stormy', function(){
-      console.log(airport)
       airport_4 = new Airport('stormy');
-      // spyOn(weather, 'generateWeather').and.returnValue("stormy");
-      
-
-
-      // spyOn(Math, 'random').and.returnValue(8);
-      console.log(airport_4)
       expect( function(){
                   airport_4.land(plane);
                 }).toThrow(new Error("Too stormy to land."))
