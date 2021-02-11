@@ -1,8 +1,29 @@
 describe('Airport', function() {
+
+  class PlaneDouble {
+    constructor() {
+      this.status = "In the Air";
+    }
+
+    landed() {
+      this.status = "In Airport";
+    }
+
+    takeoff() {
+      this.status = "In The Air"
+    }
+
+    showStatus() {
+      return this.status
+    }
+  }
+
   beforeEach(function() {
-    plane = new Plane();
+    plane = new PlaneDouble();
+    plane_2 = new PlaneDouble();
     airport = new Airport('sunny');
   })
+
 
   describe('#capacity', function(){
     it('has a default capacity of 20 spaces', function() {
@@ -41,7 +62,6 @@ describe('Airport', function() {
     })
 
     it('only allows planes in airport to take off', function(){
-      plane_2 = new Plane();
       airport.land(plane);
       airport_2 = new Airport('sunny');
       airport_2.land(plane_2);
@@ -52,12 +72,11 @@ describe('Airport', function() {
     })
 
     it('does not allow takeoff of flying planes', function(){
-      plane_2 = new Plane();
       airport.land(plane_2);
 
       expect (function() {
                   airport.takeoff(plane);
-                }).toThrow(new Error("Plane airborne."))
+                }).toThrow(new Error("Plane not in airport."))
     })
   })
 
