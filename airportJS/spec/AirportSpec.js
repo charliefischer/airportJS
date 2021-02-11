@@ -1,3 +1,4 @@
+"use strict";
 describe('Airport', function() {
 
   class PlaneDouble {
@@ -17,6 +18,13 @@ describe('Airport', function() {
       return this.status
     }
   }
+
+  let plane;
+  let plane_2;
+  let airport;
+  let airport_2;
+  let airport_3;
+  let airport_4;
 
   beforeEach(function() {
     plane = new PlaneDouble();
