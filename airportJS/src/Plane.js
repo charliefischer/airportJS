@@ -12,6 +12,6 @@ class Plane {
   }
 
   showStatus() {
-    return this.status 
+    return this.status
   }
 }

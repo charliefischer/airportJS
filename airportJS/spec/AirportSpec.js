@@ -1,24 +1,6 @@
 "use strict";
 describe('Airport', function() {
 
-  class PlaneDouble {
-    constructor() {
-      this.status = "In the Air";
-    }
-
-    landed() {
-      this.status = "In Airport";
-    }
-
-    takeoff() {
-      this.status = "In The Air"
-    }
-
-    showStatus() {
-      return this.status
-    }
-  }
-
   let plane;
   let plane_2;
   let airport;
@@ -27,13 +9,13 @@ describe('Airport', function() {
   let airport_4;
 
   beforeEach(function() {
-    plane = new PlaneDouble();
-    plane_2 = new PlaneDouble();
+    plane = jasmine.createSpyObj('plane', ['landed', 'takeoff']);
+    plane_2 = jasmine.createSpyObj('plane', ['landed', 'takeoff']);
     airport = new Airport('sunny');
   })
 
 
-  describe('#capacity', function(){
+  describe('#capacity', function() {
     it('has a default capacity of 20 spaces', function() {
       expect(airport.showCapacity()).toBe(20);
     })
@@ -52,7 +34,9 @@ describe('Airport', function() {
     it('doesnt let planes land when full', function() {
       airport_3 = new Airport('sunny', 1);
       airport_3.land(plane);
-      expect ( function() {airport_3.land(plane); }).toThrow(new Error("Airport full."));
+      expect(function() {
+        airport_3.land(plane);
+      }).toThrow(new Error("Airport full."));
     })
   })
 
@@ -63,38 +47,38 @@ describe('Airport', function() {
       expect(airport.planesInAirport().length).toBe(0);
     })
 
-    it('does not allow takeoff when empty', function(){
-      expect (function() {
-                  airport.takeoff(plane);
-                          }).toThrow(new Error("Airport empty."))
+    it('does not allow takeoff when empty', function() {
+      expect(function() {
+        airport.takeoff(plane);
+      }).toThrow(new Error("Airport empty."))
     })
 
-    it('only allows planes in airport to take off', function(){
+    it('only allows planes in airport to take off', function() {
       airport.land(plane);
       airport_2 = new Airport('sunny');
       airport_2.land(plane_2);
-      expect (function() {
-                  airport_2.takeoff(plane);
-                    }).toThrow(new Error("Plane not in airport."))
+      expect(function() {
+        airport_2.takeoff(plane);
+      }).toThrow(new Error("Plane not in airport."))
 
     })
 
-    it('does not allow takeoff of flying planes', function(){
+    it('does not allow takeoff of flying planes', function() {
       airport.land(plane_2);
 
-      expect (function() {
-                  airport.takeoff(plane);
-                }).toThrow(new Error("Plane not in airport."))
+      expect(function() {
+        airport.takeoff(plane);
+      }).toThrow(new Error("Plane not in airport."))
     })
   })
 
   describe('weather', function() {
 
-    it('prevents landing when stormy', function(){
+    it('prevents landing when stormy', function() {
       airport_4 = new Airport('stormy');
-      expect( function(){
-                  airport_4.land(plane);
-                }).toThrow(new Error("Too stormy to land."))
+      expect(function() {
+        airport_4.land(plane);
+      }).toThrow(new Error("Too stormy to land."))
     })
   })
 })
